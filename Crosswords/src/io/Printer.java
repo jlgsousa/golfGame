@@ -52,7 +52,7 @@ public class Printer {
         duration /= 1000000000;
         if (duration < 5) {
             System.out.println("You took " + duration + " seconds that was quite fast");
-        } else if (duration >= 5 && duration < 1) {
+        } else if (duration >= 5 && duration < 10) {
             System.out.println("You took " + duration + " seconds not bad");
         } else {
             System.out.println("You took " + duration + " seconds, you suck");
