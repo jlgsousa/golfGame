@@ -6,39 +6,38 @@ public class WordGrid {
     private int size;
     private char[][] wordPool;
     private String[] wordsArray;
-    private char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+    private static char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
             'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'x', 'w', 'y', 'z'};
-    Random rand;
+    private Random rand;
 
-    public WordGrid() {
+    WordGrid() {
         size = 10;
         wordPool = new char[size + 2][size + 2];
         rand = new Random();
     }
 
-    public void prepareGrid(boolean isSolutionGrid) {
-        for (int line = 0; line <= size + 1; line++) {
-            for (int column = 0; column <= size + 1; column++) {
-                if (column == 0 || column == size + 1) {
-                    wordPool[line][column] = '|';
-                } else if (line == 0 && column > 0 && column < size + 1) {
-                    wordPool[line][column] = '=';
-                } else if (line == size + 1 && column > 0 && column < size + 1) {
-                    wordPool[line][column] = '=';
-                } else {
-                    if (isSolutionGrid) {
-                        wordPool[line][column] = isSolutionGrid ? ' ' : alphabet[rand.nextInt(alphabet.length)];
-                    }
-                }
-            }
+    public void firstWordInTheGrid() {
+        int line = rand.nextInt(size) + 1;
+        int column = rand.nextInt(size) + 1;
+
+        while (isColumnNotValid(column)) {
+            column = rand.nextInt(size) + 1;
         }
+
+        for (int x = 0; x < wordsArray[0].length(); x++) {
+            wordPool[line][column + x] = wordsArray[0].charAt(x);
+        }
+    }
+
+    boolean isColumnNotValid(int column) {
+        return column + wordsArray[0].length() > size;
     }
 
     public int getSize(){
         return size;
     }
 
-    public void setSize(int size) {
+    protected void setSize(int size) {
         this.size = size;
         wordPool = new char[size + 2][size + 2];
     }
@@ -61,5 +60,9 @@ public class WordGrid {
 
     public void setWordsArray(String[] wordsArray) {
         this.wordsArray = wordsArray;
+    }
+
+    public char getRandomLetter() {
+        return alphabet[rand.nextInt(alphabet.length)];
     }
 }

@@ -1,5 +1,6 @@
 package src.io;
 
+import src.entities.WordGrid;
 import src.utils.api.WordSorter;
 import src.utils.impl.WordSorterImpl;
 import java.util.Scanner;
@@ -15,47 +16,63 @@ public class Reader {
 
 
     public String[] getWordsArray() {
-        boolean caract = true;
         boolean flag = false;
-        System.out.print("Palavras que quer na grelha de jogo: ");
-        String palavras1 = scan.nextLine();
-        palavras1 = palavras1.toLowerCase();
-        String[] palavras = palavras1.split(" ");
+        System.out.print("Please insert an odd number of words for the game grid: ");
+        String word = scan.nextLine();
+        word = word.toLowerCase();
+        String[] wordArray = word.split(" ");
+
+        while(wordArray.length % 2 == 0) {
+            System.out.print("Please insert an odd number of words for the game grid: ");
+            word = scan.nextLine();
+            word = word.toLowerCase();
+            wordArray = word.split(" ");
+        }
 
         while (!flag) {
             flag = true;
-            for (int palavra = 0; palavra < palavras.length; palavra++) {
-                for (int i = 0; i < palavras[palavra].length(); i++) {
-                    caract = Character.isLetter(palavras[palavra].charAt(i));
-                    if (!caract) {
+
+            outerloop:
+            for (int wordIndex = 0; wordIndex < wordArray.length; wordIndex++) {
+                for (int i = 0; i < wordArray[wordIndex].length(); i++) {
+                    if (!Character.isLetter(wordArray[wordIndex].charAt(i))) {
                         flag = false;
-                        System.out.println("Caracter invalido introduzido ");
-                        System.out.print("Palavras que quer na grelha de jogo: ");
-                        palavras1 = scan.nextLine();
-                        palavras1 = palavras1.toLowerCase();
-                        palavras = palavras1.split(" ");
+                        System.out.println("Invalid character " + wordArray[wordIndex].charAt(i));
+                        System.out.print("Please insert an odd number of wanted words in the game grid: ");
+                        word = scan.nextLine();
+                        word = word.toLowerCase();
+                        wordArray = word.split(" ");
+
+                        break outerloop;
                     }
                 }
             }
         }
 
-        return palavras;
+        return wordArray;
     }
 
-    public String[] sortWordsBySize(String[] words) {
-        return wordSorter.sortWordsBySize(words);
+    public String[] getSortedWordsArray() {
+        return wordSorter.sortWordsBySize(getWordsArray());
     }
 
     public int getGridSize() {
-        // Dimensao
-        int size;
         System.out.print("Introduce the grid's size: ");
-        while(!scan.hasNextInt() || (size = scan.nextInt()) <= 0) {
+        int size = scan.nextInt();
+        while(size <= 0) {
             System.out.println("Please insert a positive number");
-            scan.next();
+            size = scan.nextInt();
         }
         return size;
     }
 
+    public int getValidGridSizeFor(WordGrid wordGrid) {
+        int validSize = getGridSize();
+        while (!wordGrid.isValidSize(validSize)) {
+            System.out.println("One or more words are bigger than the grid size :/");
+            validSize = getGridSize();
+        }
+        return validSize;
+    }
 
 }
