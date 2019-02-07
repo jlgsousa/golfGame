@@ -1,2 +1,5 @@
-# golfGame
-Simple golf game making use of java language core features such as cycles and user input scanner
+# Java beginners games
+A set of interactive games to exercise core java features
+
+- Golf game
+- Crosswords
