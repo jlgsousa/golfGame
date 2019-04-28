@@ -1,9 +1,12 @@
-package src.game.pojo;
+package src.sueca.pojo.player;
 
+
+import src.sueca.pojo.game.GameRound;
+import src.sueca.pojo.Utils;
+import src.sueca.pojo.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class Player {
 
@@ -19,7 +22,7 @@ public class Player {
         this.gameRound = gameRound;
     }
 
-    public GameRound getGameRound() {
+    private GameRound getGameRound() {
         return gameRound;
     }
 
@@ -27,7 +30,7 @@ public class Player {
         this.order = order;
     }
 
-    public Order getOrder() {
+    private Order getOrder() {
         return order;
     }
 
@@ -56,11 +59,11 @@ public class Player {
 
     public void printHand() {
         int numberOfCards = this.getHand().size();
-        StringBuilder cardNumber = new StringBuilder("");
-        StringBuilder horizontalLine = new StringBuilder("");
-        StringBuilder upperSymbol = new StringBuilder("");
-        StringBuilder suits = new StringBuilder("");
-        StringBuilder lowerSymbol = new StringBuilder("");
+        StringBuilder cardNumber = new StringBuilder();
+        StringBuilder horizontalLine = new StringBuilder();
+        StringBuilder upperSymbol = new StringBuilder();
+        StringBuilder suits = new StringBuilder();
+        StringBuilder lowerSymbol = new StringBuilder();
 
         for (int i = 0; i < numberOfCards; i++) {
             cardNumber.append("->").append((i+1)).append("<-  ");
@@ -87,7 +90,7 @@ public class Player {
 
         private int value;
 
-        public int getValue() {
+        private int getValue() {
             return value;
         }
 

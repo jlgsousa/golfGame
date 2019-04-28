@@ -1,4 +1,6 @@
-package src.game.pojo;
+package src.sueca.pojo;
+
+import src.sueca.pojo.card.Card;
 
 import java.util.List;
 import java.util.Map;

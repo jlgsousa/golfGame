@@ -1,4 +1,4 @@
-package src.game.pojo;
+package src.sueca.pojo.player;
 
 public class Team {
     private Player player1;

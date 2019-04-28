@@ -1,33 +1,36 @@
-package src.game.pojo;
+package src.sueca.pojo.game;
+
+import src.sueca.pojo.card.Deck;
+import src.sueca.pojo.player.Player;
+import src.sueca.pojo.player.Team;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class Table {
+class Table {
 
     private Deck deck;
     private Team teamA;
     private Team teamB;
     private GameRound gameRound;
 
-    public Deck getDeck() {
+    Deck getDeck() {
         return deck;
     }
 
-    public Team getTeamA() {
+    private Team getTeamA() {
         return teamA;
     }
 
-    public Team getTeamB() {
+    Team getTeamB() {
         return teamB;
     }
 
-    public GameRound getGameRound() {
+    GameRound getGameRound() {
         return gameRound;
     }
 
-    public Table(String[] playerNames) {
+    Table(String[] playerNames) {
         deck = new Deck();
 
         gameRound = new GameRound();
@@ -39,7 +42,7 @@ public class Table {
                 new Player(playerNames[3], Player.Order.FOURTH, gameRound));
     }
 
-    public List<Player> getPlayers() {
+    List<Player> getPlayers() {
         List<Player> players = new ArrayList<>();
         players.add(getTeamA().getPlayer1());
         players.add(getTeamB().getPlayer1());
@@ -49,19 +52,19 @@ public class Table {
         return players;
     }
 
-    public void shuffleDeck() {
+    void shuffleDeck() {
         deck.shuffle();
     }
 
-    public void manualShuffleDeck() {
-        deck.manualShuffle();
-    }
+//    public void manualShuffleDeck() {
+//        deck.manualShuffle();
+//    }
 
-    public void cutDeck() {
+    void cutDeck() {
         deck.cut();
     }
 
-    public void giveCards() {
+    void giveCards() {
         for (int i = 0; i < 40; i += 4) {
             getTeamA().getPlayer1().getHand().add(deck.getCards()[i]);
             getTeamB().getPlayer1().getHand().add(deck.getCards()[i + 1]);
@@ -70,11 +73,11 @@ public class Table {
         }
     }
 
-    public boolean noTeamWon() {
+    boolean noTeamWon() {
         return getTeamA().getVictories() < 4 && getTeamB().getVictories() < 4;
     }
 
-    public void reorderPlayers(Player winner) {
+    void reorderPlayers(Player winner) {
         if (getTeamA().getPlayer1() == winner) {
             getTeamA().getPlayer1().setOrder(Player.Order.FIRST);
             getTeamB().getPlayer1().setOrder(Player.Order.SECOND);
@@ -98,25 +101,25 @@ public class Table {
         }
     }
 
-    public void showAndSetRoundResults(int vaza, Player winningPlayer) {
+    Team getWinningTeam(Player winningPlayer) {
+        if (getTeamA().getPlayer1() == winningPlayer || getTeamA().getPlayer2() == winningPlayer) {
+            return getTeamA();
+        } else  {
+            return getTeamB();
+        }
+    }
+
+    void showRoundResults(Team winningTeam, Player winningPlayer, int vaza) {
         System.out.println("==============================================================");
         System.out.println("+++++ The round " + vaza + " was won by player " + winningPlayer.getName() + " +++++");
-
-        if (getTeamA().getPlayer1() == winningPlayer || getTeamA().getPlayer2() == winningPlayer) {
-
-            getTeamA().setPoints(getTeamA().getPoints() + getGameRound().getTotalPoints());
-            System.out.println("| " + getGameRound().getTotalPoints() + " Points to attribute to players " + teamA.getPlayer1().getName() + " and " + teamA.getPlayer2().getName() + "|");
-        } else if (getTeamB().getPlayer1() == winningPlayer || getTeamB().getPlayer2() == winningPlayer) {
-
-            getTeamB().setPoints(getTeamB().getPoints() + getGameRound().getTotalPoints());
-            System.out.println("| " + getGameRound().getTotalPoints() + " Points to attribute to player " + teamB.getPlayer1().getName() + " and " + teamB.getPlayer2().getName() + "|");
-        }
+        System.out.println("| " + getGameRound().getTotalPoints() + " Points to attribute to players "
+                + winningTeam.getPlayer1().getName() + " and " + winningTeam.getPlayer2().getName() + "|");
         System.out.println("==============================================================");
         System.out.println(" ");
         System.out.println(" ");
     }
 
-    public void showGameReport() {
+    void showGameReport() {
         String array[][] = new String[5][15];
         array[0][0] = array[4][0] = "P";
         array[0][1] = array[4][1] = "a";
@@ -157,6 +160,7 @@ public class Table {
                 }
             }
         }
+
         for (int column = 0; column < array[0].length; column++) {
             System.out.print(array[0][column]);
         }
@@ -180,7 +184,7 @@ public class Table {
         System.out.println("======================================================");
     }
 
-    public void showFinalResult(boolean won) {
+    private void showFinalResult(boolean won) {
         if (won) {
             System.out.println("*********************************");
             System.out.println("*        Congrats You Won       *");
@@ -209,14 +213,22 @@ public class Table {
         }
     }
 
-    public void updateTeamsVictories() {
+    void updateTeamsVictories() {
         teamA.addVictories(teamA.getPoints());
         teamB.addVictories(teamB.getPoints());
     }
 
-    public void resetTeamsPoints() {
+    void resetTeamsPoints() {
         teamA.setPoints(0);
         teamB.setPoints(0);
+    }
+
+    void showFinalResult() {
+        if (teamB.getVictories() >= 4) {
+            showFinalResult(true);
+        } else if (teamA.getVictories() >= 4) {
+            showFinalResult(false);
+        }
     }
 
 }

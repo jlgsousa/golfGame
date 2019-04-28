@@ -1,4 +1,7 @@
-package src.game.pojo;
+package src.sueca.pojo.game;
+
+import src.sueca.pojo.card.Card;
+import src.sueca.pojo.player.Player;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -9,7 +12,7 @@ public class GameRound {
     private int totalPoints;
     private int roundNumber;
 
-    public Map<Player, Card> getPlayedCards() {
+    Map<Player, Card> getPlayedCards() {
         return playedCards;
     }
 
@@ -17,25 +20,25 @@ public class GameRound {
         return sortedNaipes;
     }
 
-    public int getTotalPoints() {
+    int getTotalPoints() {
         return totalPoints;
     }
 
-    public GameRound() {
+    GameRound() {
         playedCards = new LinkedHashMap<>();
         sortedNaipes = new ArrayList<>();
         roundNumber = 1;
     }
 
-    public int getRoundNumber() {
+    int getRoundNumber() {
         return roundNumber;
     }
 
-    public void incrementRoundNumber() {
+    void incrementRoundNumber() {
         this.roundNumber++;
     }
 
-    public Player endRound() {
+    Player endRound() {
 
         totalPoints = 0;
         for (Map.Entry<Player, Card> entry : playedCards.entrySet()) {
@@ -55,16 +58,16 @@ public class GameRound {
         return winningPlayer;
     }
 
-    public boolean isFirstTurn() {
+    boolean isFirstTurn() {
         return playedCards.isEmpty();
     }
 
-    public Card getFirstPlayedCard() {
+    Card getFirstPlayedCard() {
         Iterator<Map.Entry<Player, Card>> iterator = playedCards.entrySet().iterator();
         return iterator.next().getValue();
     }
 
-    public void showPlayedCards() {
+    void showPlayedCards() {
         List<Card> cards = new ArrayList<>(playedCards.values());
         List<Player> players = new ArrayList<>(playedCards.keySet());
 
@@ -95,11 +98,16 @@ public class GameRound {
         System.out.println("                              "+player2.getName());
     }
 
-    public boolean isStartRound() {
+    boolean isStartRound() {
         return (roundNumber - 1) % 10 == 0;
     }
 
-    public boolean isFinishRound() {
+    boolean isFinishRound() {
         return roundNumber % 10 == 0;
+    }
+
+    void resetGameRound() {
+        getSortedNaipes().clear();
+        getPlayedCards().clear();
     }
 }

@@ -1,4 +1,4 @@
-package src.game.pojo;
+package src.sueca.pojo.card;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -43,16 +43,16 @@ public class Deck {
         cards = cardsList.toArray(new Card[0]);
     }
 
-    public void manualShuffle() {
-        Random rand = new Random();
-        Card tempCard;
-        for (int i = 0; i < cards.length; i++) {
-            int randomIndex = rand.nextInt(cards.length);
-            tempCard = cards[i];
-            cards[i] = cards[randomIndex];
-            cards[randomIndex] = tempCard;
-        }
-    }
+//    public void manualShuffle() {
+//        Random rand = new Random();
+//        Card tempCard;
+//        for (int i = 0; i < cards.length; i++) {
+//            int randomIndex = rand.nextInt(cards.length);
+//            tempCard = cards[i];
+//            cards[i] = cards[randomIndex];
+//            cards[randomIndex] = tempCard;
+//        }
+//    }
 
     public void cut() {
         Random rand = new Random();

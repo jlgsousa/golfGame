@@ -1,4 +1,4 @@
-package src.game.pojo;
+package src.sueca.pojo.card;
 
 import java.util.List;
 
@@ -26,15 +26,15 @@ public class Card {
 		return naipe;
 	}
 
-	public boolean isTrunfo() {
+	private boolean isTrunfo() {
 		return isTrunfo;
 	}
 
-	public void setIsTrunfo(boolean isTrunfo) {
+	void setIsTrunfo(boolean isTrunfo) {
 		this.isTrunfo = isTrunfo;
 	}
 
-	public Card(Suit suit, Symbol symbol){
+	Card(Suit suit, Symbol symbol){
 		this.naipe = suit;
 		this.symbol = symbol;
 	}
@@ -128,7 +128,7 @@ public class Card {
 			return points;
 		}
 
-		public int getNumber() {
+		private int getNumber() {
 			return number;
 		}
 	}
