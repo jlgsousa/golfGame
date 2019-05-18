@@ -1,0 +1,3 @@
+ObjectOutputStreams must be created before ObjectInputStreams (requirement from java.net)
+For each message sent a new instance of an object must be created.
+The object sent by a socket once deserialized is not considered the same (use index for removal of lists)
