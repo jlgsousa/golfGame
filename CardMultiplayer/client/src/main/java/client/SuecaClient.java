@@ -29,8 +29,8 @@ public class SuecaClient {
     private boolean gameOver;
     private int round;
 
-    private SuecaClient() throws IOException {
-        socket = new Socket("localhost", 59000);
+    private SuecaClient(String host, int port) throws IOException {
+        socket = new Socket(host, port);
         InputStream in = socket.getInputStream();
         OutputStream out = socket.getOutputStream();
         //ORDER MATTERS!!!
@@ -231,7 +231,13 @@ public class SuecaClient {
     }
 
     public static void main(String[] args) throws Exception {
-        SuecaClient client = new SuecaClient();
+        String ip = "localhost";
+        int port = 59000;
+        if (args != null && args.length == 2) {
+            ip = args[0];
+            port = Integer.parseInt(args[1]);
+        }
+        SuecaClient client = new SuecaClient(ip, port);
         client.play();
     }
 }

@@ -28,7 +28,11 @@ public class SuecaServer {
     protected static List<ICard> playedCards = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
-        try (ServerSocket listener = new ServerSocket(59000)) {
+        int port = 59000;
+        if (args != null && args.length == 1) {
+            port = Integer.parseInt(args[0]);
+        }
+        try (ServerSocket listener = new ServerSocket(port)) {
             System.out.println("Sueca server is on");
 
             acceptConnections(listener, 40);
