@@ -12,7 +12,7 @@ A set of interactive games to exercise core java features
 
 ![](Crosswords/display.png "Display Screen")
 
-- Card Game SinglePlayer</br>
+- Java Sockets Card Game SinglePlayer</br>
 ![](Sueca/screenshots/introScreen.png "Intro Screen")  
 
 ![](Sueca/screenshots/handCards.png "Hand Cards")  
@@ -27,3 +27,6 @@ A set of interactive games to exercise core java features
 ![](CardMultiplayer/screenshots/clientTurn.png "Client Screen")  
 
 ![](CardMultiplayer/screenshots/showReport.png "Report Client Screen")  
+
+- Java RMI simple application  
+![](RMI/introScreen.png "Intro Screen") 
